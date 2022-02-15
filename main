@@ -1,0 +1,61 @@
+package listas;
+import java.util.Scanner;
+
+
+public class control {
+    public static void main(String[] args){
+        listasCD listap = new listasCD();
+        Scanner entrada = new Scanner(System.in);
+        int opcion = 0;
+        do{
+            System.out.println("\n\n LISTA DOBLE CIRCULAR");
+            System.out.println("\n 1.-Ingresar nodo:");
+            System.out.println("\n 2.-Buscar nodo:");
+            System.out.println("\n 3.-Modificar nodo:");
+            System.out.println("\n 4.-Eliminar nodo:");
+            System.out.println("\n 5.-Mostrar Lista:");
+            System.out.println("\n 6.-Salir del programa:");
+            System.out.println("\n Escoja una opcion:   ");
+            opcion = entrada.nextInt();
+            
+            switch(opcion){
+                case 1:
+                    System.out.println("\n INSERTAR NODO");
+                    System.out.println("\n Ingrese el dato del nodo: ");
+                    int dato = entrada.nextInt();
+                    listap.ingresarNodo(dato);
+                    break;
+                case 2:
+                    System.out.println("\n BUSCAR NODO");
+                    System.out.println("\n Ingrese el dato del nodo a buscar: ");
+                    dato = entrada.nextInt();
+                    listap.buscarNodo(dato);
+                    break;
+                case 3:
+                    System.out.println("\n MODIFICAR NODO");
+                    System.out.println("\n Ingrese el dato del nodo a modificar: ");
+                    dato = entrada.nextInt();
+                    listap.modificarNodo(dato);
+                    break;
+                case 4:
+                    System.out.println("\n ELIMINAR NODO");
+                    System.out.println("\n Puede eliminar datos de inicio, final o de posiciones internas.");
+                    System.out.println("\n Ingrese el dato del nodo a eliminar: ");
+                    dato = entrada.nextInt();
+                    listap.eliminarNodo(dato);
+                    break;
+                case 5:
+                    System.out.println("\n MOSTRAR LISTA DE NODOS");
+                    listap.desplegar();                
+                    break;   
+                case 6:
+                    System.out.println("\n Programa Finalizado....");                    
+                    break;
+                default:
+                    System.out.println("\n OPCION FUERA DE RANGO");                                    
+            }
+            
+            
+        }while(opcion != 6);
+    }
+}
