@@ -1,0 +1,118 @@
+package listas;
+import java.util.Scanner;
+
+public class listasCD {
+    Scanner entrada = new Scanner(System.in);
+    nodo primero;
+    nodo ultimo;
+    
+    public listasCD(){
+        primero = null;
+        ultimo = null;
+    }
+    
+    
+    //Notas de como esta apuntando todo
+    //primero = 40
+    //ultimo = 36
+    
+    //x=57
+    //Nuevo nodo x=62
+    //nuevo nodo x=36
+    
+    // 57<- 40 -> <- 57 ->40
+    //nueva cadena
+    //62<- 40 -> <- 57 -> <-62->40
+    //nueva cadena
+    //36<- 40 -> <- 57 -> <-62-><-36->40
+    public void ingresarNodo(int x){
+        nodo nuevo = new nodo();
+        nuevo.dato = x;
+        if(primero == null){
+            primero = nuevo;
+            primero.siguiente = primero;
+            nuevo.anterior = ultimo;
+            ultimo = nuevo;
+        }else{
+            ultimo.siguiente = nuevo;
+            nuevo.siguiente = primero;
+            nuevo.anterior = ultimo;
+            ultimo = nuevo;
+            primero.anterior = ultimo;
+        }
+    }
+    
+    public void desplegar(){
+        nodo actual = new nodo();
+        actual = primero;
+        do{
+            System.out.println(actual.dato);
+            actual = actual.siguiente;
+        }while(actual != primero);
+    }
+    
+    public void buscarNodo(int x){
+        nodo actual = new nodo();
+        actual = ultimo;
+        boolean encontrado = false;
+        do{
+           if(actual.dato == x){
+               encontrado = true;
+           }
+           actual = actual.anterior;
+        }while(actual != ultimo);
+        
+        if (encontrado == true){
+            System.out.println("\n Nodo encontrado");
+        }else{
+            System.out.println("\n Nodo no encontrado");
+        }
+    }
+    
+    public void modificarNodo(int x){
+        nodo actual = new nodo();
+        actual = primero;
+        boolean modificado = false;
+        do{
+            if(actual.dato == x){
+                System.out.println("\nIngrese un nuevo valor para el nodo: ");
+                actual.dato = entrada.nextInt();
+                modificado = true;
+            }
+            actual = actual.siguiente;
+        }while(actual != primero);
+        
+        if(modificado == true){
+            System.out.println("\n Se ah modificado el valor de nodo exitosamente.");
+        }else{
+            System.out.println("\n Nodo no modificado, no se encontro el nodo.");
+        }
+    }
+    
+    public void eliminarNodo(int x){
+        nodo actual = new nodo();
+        nodo anterior = new nodo();
+        actual = primero;
+        anterior = ultimo;
+        do{
+            //elimina al primero
+            if(actual.dato == x){
+               if(actual == primero){
+                   primero = primero.siguiente;
+                   ultimo.siguiente = primero;
+                   primero.anterior = ultimo;
+               //otra condicion para eliminar el ultimo    
+               }else if(actual == ultimo){
+                   ultimo = anterior;
+                   primero.anterior = ultimo;
+                   ultimo.siguiente = primero;
+               }else{
+                   anterior.siguiente = actual.siguiente;
+                   actual.siguiente.anterior=anterior;
+               } 
+            }
+            anterior = actual;
+            actual = actual.siguiente;
+        }while(actual != primero);
+    }
+}
