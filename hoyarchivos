@@ -1,0 +1,70 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package externos;
+
+ 
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+ 
+
+/**
+ *
+ * @author jorge.reyes
+ */
+public class FusionaArchivos {        
+    public static void main(String[] args) {       
+       Scanner fileF1,fileF2;
+       String linea1="",linea2=""; 
+       PrintWriter fileF3;
+       int dato1=0,dato2=0;
+       try{         
+         fileF1 = new Scanner(new FileReader("F1.txt"));
+         fileF2 = new Scanner(new FileReader("F2.txt"));
+         fileF3 = new PrintWriter("F3.txt");            
+         if (fileF1.hasNextLine())
+             linea1 = fileF1.nextLine();
+         if (fileF2.hasNextLine())
+             linea2 = fileF2.nextLine();         
+         while(fileF1.hasNextLine() ||fileF2.hasNextLine()){
+           if (!linea1.equals("") && !linea2.equals("")){              
+                dato1 = Integer.parseInt(linea1);              
+                dato2 = Integer.parseInt(linea2);
+              if(dato1<dato2){ //Bajas a F3, el dato1
+                fileF3.println(dato1);
+                linea1 = fileF1.nextLine();
+              }
+              else{
+                fileF3.println(dato2);  
+                linea2 = fileF2.nextLine();
+              }
+           }
+           else{ 
+             if (linea1.equals("")){//Aquí se quedo sin datos F1 y bajo 
+                 //el dato de F2 hacia F3.
+                 fileF3.println(linea2);
+                 if (fileF2.hasNextLine())
+                   linea2 = fileF2.nextLine();
+                 }
+             if(linea2.equals("")){//Aquí se quedó sin datos F2 y bajo
+                 //el dato de F1 hacia F3
+                 fileF3.println(linea1);
+                 if (fileF1.hasNextLine())
+                   linea1 = fileF1.nextLine();
+             }
+             }             
+         }         
+         fileF1.close();
+         fileF2.close();
+         fileF3.close();                  
+       }
+       catch(FileNotFoundException e){
+           System.out.println("Error en el archivo");
+       }
+    }
+}
